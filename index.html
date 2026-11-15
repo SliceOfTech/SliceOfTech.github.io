@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicolas Tama — Web Design & Development</title>
+<style>
+:root{
+  --bg:#fafaf7;--surface:#ffffff;--text:#16161a;--muted:#62626b;--line:#e4e4dd;--accent:#4f46e5;--accent-text:#ffffff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0f0f13;--surface:#18181e;--text:#f2f2f5;--muted:#a1a1ab;--line:#2a2a33;--accent:#8b85ff;--accent-text:#0f0f13}
+}
+:root[data-theme="dark"]{--bg:#0f0f13;--surface:#18181e;--text:#f2f2f5;--muted:#a1a1ab;--line:#2a2a33;--accent:#8b85ff;--accent-text:#0f0f13}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+nav .logo{font-weight:700;letter-spacing:-.02em}
+nav a{color:var(--muted);text-decoration:none;margin-left:22px;font-size:.95rem}
+nav a:hover{color:var(--text)}
+.hero{padding:72px 0 56px}
+.eyebrow{color:var(--accent);font-weight:600;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2.4rem,7vw,4.4rem);line-height:1.05;letter-spacing:-.035em;margin:14px 0 18px}
+.hero p{max-width:580px;color:var(--muted);font-size:1.15rem;margin:0 0 28px}
+.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--surface);cursor:pointer;font:inherit;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+.btn+.btn{margin-left:10px}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:1.8rem;letter-spacing:-.02em;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--accent),#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:700;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{margin:0;font-size:1.15rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+.card a{color:var(--accent);font-weight:600;text-decoration:none;margin-top:6px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags span{font-size:.75rem;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.skills div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.skills h3{margin:0 0 6px;font-size:1.05rem}
+.skills p{margin:0;color:var(--muted);font-size:.95rem}
+form{display:grid;gap:14px;max-width:620px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:.9rem;font-weight:600}
+input,select,textarea{font:inherit;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea{min-height:130px;resize:vertical}
+#note{color:var(--muted);font-size:.9rem;min-height:1.4em}
+footer{padding:32px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="logo">Nicolas Tama</span>
+    <div><a href="#work">Work</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Web designer &amp; developer</div>
+    <h1>I design and build websites that work as well as they look.</h1>
+    <p>Hi, I’m Nicolas. I create clean, fast, custom websites for people and businesses, from the first sketch to the final line of code.</p>
+    <a class="btn primary" href="#contact">Request a website</a>
+    <a class="btn" href="#work">See my work</a>
+  </header>
+
+  <section id="work">
+    <h2>Selected work</h2>
+    <p class="sub">A few projects I’m proud of.</p>
+    <div class="grid" id="projects"></div>
+  </section>
+
+  <section id="services">
+    <h2>What I do</h2>
+    <p class="sub">Design and code under one roof.</p>
+    <div class="skills" id="skills"></div>
+  </section>
+
+  <section id="contact">
+    <h2>Let’s build your website</h2>
+    <p class="sub">Tell me a little about your project and I’ll get back to you.</p>
+    <form id="form">
+      <div class="row">
+        <label>Your name<input id="f-name" required autocomplete="name"></label>
+        <label>Your email<input id="f-email" type="email" required autocomplete="email"></label>
+      </div>
+      <div class="row">
+        <label>Project type
+          <select id="f-type">
+            <option>New website</option><option>Website redesign</option><option>Web app</option>
+            <option>Online store</option><option>Something else</option>
+          </select>
+        </label>
+        <label>Budget (optional)<input id="f-budget" placeholder="e.g. $1,000 – $3,000"></label>
+      </div>
+      <label>About your project<textarea id="f-msg" required placeholder="What do you need, and when do you need it?"></textarea></label>
+      <div><button class="btn primary" type="submit">Send request</button></div>
+      <div id="note" role="status"></div>
+    </form>
+  </section>
+
+  <footer>
+    <span>© <span id="yr"></span> Nicolas Tama</span>
+    <span id="links"></span>
+  </footer>
+</div>
+
+<script>
+/* =====================================================
+   EDIT THIS SECTION — everything you need to change
+   ===================================================== */
+
+// Where contact requests are sent (opens the visitor's email app)
+const EMAIL = "tamanicolas305@gmail.com";
+
+// Optional social links shown in the footer
+const SOCIALS = [
+  { label: "GitHub",   url: "https://github.com/SliceOfTech" },
+  { label: "Codeberg", url: "https://codeberg.org/Nic100s" }
+];
+
+// ---- YOUR PROJECTS ---------------------------------
+// To add a project, copy one block { ... }, paste it in the list, and fill it in.
+//   title:       project name
+//   description: one or two sentences
+//   image:       link to a screenshot (e.g. "images/my-site.png" or a full URL). Leave "" for a colored placeholder.
+//   link:        where the live site (or code) lives
+//   tags:        small labels, e.g. ["Design", "React"]
+const PROJECTS = [
+  {
+    title: "Project name one",
+    description: "A short description of what this site is, who it was for, and what you did on it.",
+    image: "",
+    link: "https://example.com",
+    tags: ["Design", "Development"]
+  },
+  {
+    title: "Project name two",
+    description: "Replace this with the story of another site you built. Mention the goal and the result.",
+    image: "",
+    link: "https://example.com",
+    tags: ["Web app"]
+  },
+  {
+    title: "Project name three",
+    description: "Add as many projects as you like. They will line up in a grid automatically.",
+    image: "",
+    link: "https://example.com",
+    tags: ["Redesign"]
+  }
+];
+
+// What you offer (edit freely)
+const SERVICES = [
+  { title: "Website design", text: "Clear, modern layouts tailored to your brand and your audience." },
+  { title: "Web development", text: "Fast, responsive sites built with clean, maintainable code." },
+  { title: "Web apps", text: "Custom tools and interactive features when a simple page isn’t enough." }
+];
+
+/* ===================== END OF EDITABLE SECTION ===================== */
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+document.getElementById("projects").innerHTML = PROJECTS.map(p => `
+  <article class="card">
+    <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)} screenshot" loading="lazy">` : esc((p.title||"?").trim().charAt(0).toUpperCase())}</div>
+    <div class="body">
+      <h3>${esc(p.title)}</h3>
+      ${p.tags && p.tags.length ? `<div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
+      <p>${esc(p.description)}</p>
+      ${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">View project →</a>` : ""}
+    </div>
+  </article>`).join("");
+
+document.getElementById("skills").innerHTML = SERVICES.map(s => `<div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div>`).join("");
+document.getElementById("links").innerHTML = SOCIALS.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join(" · ");
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = id => document.getElementById(id).value.trim();
+  const subject = `Website request: ${v("f-type")} (${v("f-name")})`;
+  const body = `Name: ${v("f-name")}\nEmail: ${v("f-email")}\nProject type: ${v("f-type")}\nBudget: ${v("f-budget") || "Not specified"}\n\n${v("f-msg")}`;
+  window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  document.getElementById("note").textContent = "Opening your email app. If nothing opens, email me directly at " + EMAIL + ".";
+});
+</script>
+</body>
+</html>
