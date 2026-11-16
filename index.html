@@ -3,196 +3,440 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nicolas Tama — Web Design & Development</title>
+<title>nicolas@rice-box — Nicolas Tama</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#fafaf7;--surface:#ffffff;--text:#16161a;--muted:#62626b;--line:#e4e4dd;--accent:#4f46e5;--accent-text:#ffffff;
-  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){--bg:#0f0f13;--surface:#18181e;--text:#f2f2f5;--muted:#a1a1ab;--line:#2a2a33;--accent:#8b85ff;--accent-text:#0f0f13}
-}
-:root[data-theme="dark"]{--bg:#0f0f13;--surface:#18181e;--text:#f2f2f5;--muted:#a1a1ab;--line:#2a2a33;--accent:#8b85ff;--accent-text:#0f0f13}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#303446;--m:#292c3c;--s:#414559;--t:#c6d0f5;--mu:#949cbb;--a:#ca9ee6;--b:#8caaee;--g:#a6d189;--r:#e78284;--y:#e5c890;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
-.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-nav .logo{font-weight:700;letter-spacing:-.02em}
-nav a{color:var(--muted);text-decoration:none;margin-left:22px;font-size:.95rem}
-nav a:hover{color:var(--text)}
-.hero{padding:72px 0 56px}
-.eyebrow{color:var(--accent);font-weight:600;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase}
-h1{font-size:clamp(2.4rem,7vw,4.4rem);line-height:1.05;letter-spacing:-.035em;margin:14px 0 18px}
-.hero p{max-width:580px;color:var(--muted);font-size:1.15rem;margin:0 0 28px}
-.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--surface);cursor:pointer;font:inherit;font-weight:600}
-.btn.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
-.btn+.btn{margin-left:10px}
-section{padding:56px 0;border-top:1px solid var(--line)}
-h2{font-size:1.8rem;letter-spacing:-.02em;margin:0 0 8px}
-.sub{color:var(--muted);margin:0 0 32px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s}
-.card:hover{transform:translateY(-3px)}
-.thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--accent),#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:700;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.card .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
-.card h3{margin:0;font-size:1.15rem}
-.card p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
-.card a{color:var(--accent);font-weight:600;text-decoration:none;margin-top:6px}
-.tags{display:flex;gap:6px;flex-wrap:wrap}
-.tags span{font-size:.75rem;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-.skills div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
-.skills h3{margin:0 0 6px;font-size:1.05rem}
-.skills p{margin:0;color:var(--muted);font-size:.95rem}
-form{display:grid;gap:14px;max-width:620px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:560px){.row{grid-template-columns:1fr}}
-label{display:grid;gap:6px;font-size:.9rem;font-weight:600}
-input,select,textarea{font:inherit;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);width:100%}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
-textarea{min-height:130px;resize:vertical}
-#note{color:var(--muted);font-size:.9rem;min-height:1.4em}
-footer{padding:32px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-footer a{color:var(--muted)}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;overflow:hidden;font:13px/1.5 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:var(--m);color:var(--t)}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--b)}
+#bar{display:flex;align-items:center;gap:12px;height:34px;flex:none;padding:0 10px;background:var(--m);overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+#bar button{background:none;border:0;padding:2px 6px;border-radius:6px;color:var(--mu)}
+#bar button:hover{color:var(--t);background:var(--s)}
+.logo{color:var(--b);font-weight:700}
+#wsb button.on{background:var(--a);color:var(--m);font-weight:700}
+#wsb button.occ:not(.on){color:var(--t)}
+#ttl{flex:1;text-align:center;color:var(--mu);overflow:hidden;text-overflow:ellipsis;min-width:80px}
+#clk{color:var(--y)}
+#desk{flex:1;position:relative;overflow:hidden;
+background:radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--a) 38%,transparent),transparent 46%),radial-gradient(circle at 12% 88%,color-mix(in srgb,var(--b) 32%,transparent),transparent 52%),var(--bg)}
+#mt{position:absolute;left:0;bottom:0;width:100%;height:42%;opacity:.55}
+#conky{position:absolute;right:28px;top:22px;text-align:right;color:var(--mu);line-height:1.6;pointer-events:none}
+#conky b{display:block;font-size:44px;color:var(--t);line-height:1.1}
+#conky u{text-decoration:none;color:var(--a)}
+.win{position:absolute;display:flex;flex-direction:column;background:var(--bg);border:2px solid var(--s);border-radius:10px;overflow:hidden;resize:both;min-width:260px;min-height:160px;box-shadow:0 10px 30px #0006}
+.win.f{border-color:var(--a)}
+.tb{display:flex;align-items:center;justify-content:space-between;height:28px;flex:none;padding:0 10px;background:var(--m);cursor:grab;user-select:none;touch-action:none}
+.tb .x{cursor:pointer;color:var(--mu)}.tb .x:hover{color:var(--r)}
+.bd{flex:1;overflow:auto;min-height:0}
+.term{padding:10px;cursor:text}
+.term .o>div{white-space:pre-wrap;word-break:break-word;min-height:1.5em}
+.ln{display:flex;gap:0}
+.ln .ps{white-space:pre}
+.ln input{flex:1;min-width:40px;background:none;border:0;outline:0;color:var(--t);font:inherit;caret-color:var(--a)}
+.pad{padding:18px}
+h2{margin:0 0 6px;color:var(--a)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chips i,.tg i{font-style:normal;background:var(--s);padding:1px 9px;border-radius:99px;font-size:12px}
+.av{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b));color:var(--m);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;flex:none}
+.btn{display:inline-block;background:var(--s);border:1px solid var(--s);padding:6px 14px;border-radius:8px;text-decoration:none;color:var(--t)}
+.btn.p{background:var(--a);color:var(--m);border-color:var(--a);font-weight:700}
+.btn:hover{border-color:var(--a)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;padding:14px}
+.pc{background:var(--m);border:1px solid var(--s);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.th{aspect-ratio:16/10;background:linear-gradient(135deg,var(--a),var(--r));color:var(--m);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:700;overflow:hidden}
+.th img{width:100%;height:100%;object-fit:cover}
+.pb{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}.pb p{margin:0;color:var(--mu);flex:1}
+.fm{display:flex;height:100%}
+.side{width:130px;flex:none;background:var(--m);padding:8px;display:flex;flex-direction:column;gap:2px}
+.side button,.lst button{background:none;border:0;text-align:left;padding:4px 8px;border-radius:6px}
+.side button:hover,.lst button:hover{background:var(--s)}
+.fmm{flex:1;display:flex;flex-direction:column;min-width:0}
+.pth{padding:6px 12px;color:var(--y);border-bottom:1px solid var(--s)}
+.lst{flex:1;overflow:auto;padding:6px;display:flex;flex-direction:column}
+.prev{margin:0;padding:10px 12px;border-top:1px solid var(--s);max-height:38%;overflow:auto;white-space:pre-wrap;color:var(--mu)}
+.br{display:flex;flex-direction:column;height:100%}
+.ab{display:flex;gap:6px;padding:6px;background:var(--m)}
+.ab button{background:var(--s);border:0;border-radius:6px;padding:2px 10px}
+.ab input,form input,form textarea,form select{flex:1;background:var(--s);border:1px solid var(--s);border-radius:8px;color:var(--t);font:inherit;padding:6px 10px;outline:0;width:100%}
+.ab input:focus,form input:focus,form textarea:focus,form select:focus{border-color:var(--a)}
+.pg{flex:1;overflow:auto}
+form{display:grid;gap:10px;max-width:520px}
+form label{display:grid;gap:4px;color:var(--mu)}
+form textarea{min-height:110px;resize:vertical}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw button{padding:8px 14px;border-radius:8px;border:2px solid var(--s);background:var(--m)}
+.sw button.on{border-color:var(--a)}
+@media(max-width:700px){
+ #conky,#tilebtn{display:none}
+ .win{left:6px!important;top:6px!important;width:calc(100% - 12px)!important;height:calc(100% - 12px)!important;resize:none}
+ .win:not(.f){display:none!important}
+ .side{display:none}
+}
+@media(prefers-reduced-motion:no-preference){.win{animation:pop .12s ease-out}@keyframes pop{from{opacity:0;transform:scale(.97)}}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <nav>
-    <span class="logo">Nicolas Tama</span>
-    <div><a href="#work">Work</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
-  </nav>
-
-  <header class="hero">
-    <div class="eyebrow">Web designer &amp; developer</div>
-    <h1>I design and build websites that work as well as they look.</h1>
-    <p>Hi, I’m Nicolas. I create clean, fast, custom websites for people and businesses, from the first sketch to the final line of code.</p>
-    <a class="btn primary" href="#contact">Request a website</a>
-    <a class="btn" href="#work">See my work</a>
-  </header>
-
-  <section id="work">
-    <h2>Selected work</h2>
-    <p class="sub">A few projects I’m proud of.</p>
-    <div class="grid" id="projects"></div>
-  </section>
-
-  <section id="services">
-    <h2>What I do</h2>
-    <p class="sub">Design and code under one roof.</p>
-    <div class="skills" id="skills"></div>
-  </section>
-
-  <section id="contact">
-    <h2>Let’s build your website</h2>
-    <p class="sub">Tell me a little about your project and I’ll get back to you.</p>
-    <form id="form">
-      <div class="row">
-        <label>Your name<input id="f-name" required autocomplete="name"></label>
-        <label>Your email<input id="f-email" type="email" required autocomplete="email"></label>
-      </div>
-      <div class="row">
-        <label>Project type
-          <select id="f-type">
-            <option>New website</option><option>Website redesign</option><option>Web app</option>
-            <option>Online store</option><option>Something else</option>
-          </select>
-        </label>
-        <label>Budget (optional)<input id="f-budget" placeholder="e.g. $1,000 – $3,000"></label>
-      </div>
-      <label>About your project<textarea id="f-msg" required placeholder="What do you need, and when do you need it?"></textarea></label>
-      <div><button class="btn primary" type="submit">Send request</button></div>
-      <div id="note" role="status"></div>
-    </form>
-  </section>
-
-  <footer>
-    <span>© <span id="yr"></span> Nicolas Tama</span>
-    <span id="links"></span>
-  </footer>
+<div id="bar"><span class="logo">❖ nt</span><span id="wsb"></span><span id="launch"></span><span id="ttl"></span><button id="tilebtn" title="Re-tile windows (Alt+T)">⊞ tile</button><span id="clk"></span></div>
+<div id="desk">
+<svg id="mt" viewBox="0 0 1200 300" preserveAspectRatio="none"><polygon fill="var(--s)" points="0,300 0,190 140,90 260,170 420,40 600,180 760,80 940,190 1080,110 1200,170 1200,300"/><polygon fill="var(--m)" points="0,300 0,240 180,170 340,230 520,150 700,240 880,180 1060,245 1200,200 1200,300"/></svg>
+<div id="conky"></div>
 </div>
 
 <script>
-/* =====================================================
-   EDIT THIS SECTION — everything you need to change
-   ===================================================== */
+/* ==================================================
+   EDIT THIS SECTION: your info, projects, and links
+   ================================================== */
+const CFG = {
+  name: "Nicolas Tama",
+  role: "Web designer & developer",
+  email: "your@email.com",
+  bio: "I design and build custom websites, from the first sketch to the final line of code. This desktop is a small proof of that: everything here, including the terminal, is hand-built.",
+  skills: ["HTML", "CSS", "JavaScript", "UI design", "Responsive layouts", "Web apps"],
+  socials: [["GitHub", "https://github.com/your-username"], ["LinkedIn", "https://linkedin.com/in/your-username"]]
+};
 
-// Where contact requests are sent (opens the visitor's email app)
-const EMAIL = "tamanicolas305@gmail.com";
-
-// Optional social links shown in the footer
-const SOCIALS = [
-  { label: "GitHub",   url: "https://github.com/SliceOfTech" },
-  { label: "Codeberg", url: "https://codeberg.org/Nic100s" }
-];
-
-// ---- YOUR PROJECTS ---------------------------------
-// To add a project, copy one block { ... }, paste it in the list, and fill it in.
-//   title:       project name
-//   description: one or two sentences
-//   image:       link to a screenshot (e.g. "images/my-site.png" or a full URL). Leave "" for a colored placeholder.
-//   link:        where the live site (or code) lives
-//   tags:        small labels, e.g. ["Design", "React"]
+// ---- YOUR PROJECTS ----
+// Copy a block, paste it in the list, fill it in.
+//   image: a screenshot path or URL ("" shows a colored placeholder)
 const PROJECTS = [
-  {
-    title: "Project name one",
-    description: "A short description of what this site is, who it was for, and what you did on it.",
-    image: "",
-    link: "https://example.com",
-    tags: ["Design", "Development"]
-  },
-  {
-    title: "Project name two",
-    description: "Replace this with the story of another site you built. Mention the goal and the result.",
-    image: "",
-    link: "https://example.com",
-    tags: ["Web app"]
-  },
-  {
-    title: "Project name three",
-    description: "Add as many projects as you like. They will line up in a grid automatically.",
-    image: "",
-    link: "https://example.com",
-    tags: ["Redesign"]
-  }
+  { title: "Project one", description: "A short description of the site, who it was for, and what you built.", image: "", link: "https://example.com", tags: ["Design", "Development"] },
+  { title: "Project two", description: "Replace this with another project. Mention the goal and the result.", image: "", link: "https://example.com", tags: ["Web app"] },
+  { title: "Project three", description: "Add as many as you like. They show up in the Projects app, the browser, and the file manager.", image: "", link: "https://example.com", tags: ["Redesign"] }
 ];
+/* ================== END OF EDITABLE SECTION ================== */
 
-// What you offer (edit freely)
-const SERVICES = [
-  { title: "Website design", text: "Clear, modern layouts tailored to your brand and your audience." },
-  { title: "Web development", text: "Fast, responsive sites built with clean, maintainable code." },
-  { title: "Web apps", text: "Custom tools and interactive features when a simple page isn’t enough." }
-];
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const mk = h => { const t = document.createElement("template"); t.innerHTML = h.trim(); return t.content.firstChild; };
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-/* ===================== END OF EDITABLE SECTION ===================== */
+/* ---------- themes ---------- */
+const THEMES = {
+  frappe: { bg: "#303446", m: "#292c3c", s: "#414559", t: "#c6d0f5", mu: "#949cbb", a: "#ca9ee6", b: "#8caaee", g: "#a6d189", r: "#e78284", y: "#e5c890" },
+  mocha: { bg: "#1e1e2e", m: "#181825", s: "#313244", t: "#cdd6f4", mu: "#7f849c", a: "#cba6f7", b: "#89b4fa", g: "#a6e3a1", r: "#f38ba8", y: "#f9e2af" },
+  latte: { bg: "#eff1f5", m: "#e6e9ef", s: "#ccd0da", t: "#4c4f69", mu: "#6c6f85", a: "#8839ef", b: "#1e66f5", g: "#40a02b", r: "#d20f39", y: "#a8620a" },
+  gruvbox: { bg: "#282828", m: "#1d2021", s: "#3c3836", t: "#ebdbb2", mu: "#928374", a: "#d3869b", b: "#83a598", g: "#b8bb26", r: "#fb4934", y: "#fabd2f" },
+  nord: { bg: "#2e3440", m: "#242933", s: "#3b4252", t: "#d8dee9", mu: "#8c98ad", a: "#b48ead", b: "#81a1c1", g: "#a3be8c", r: "#bf616a", y: "#ebcb8b" },
+  rosepine: { bg: "#191724", m: "#13111e", s: "#26233a", t: "#e0def4", mu: "#8a86a3", a: "#c4a7e7", b: "#9ccfd8", g: "#9ccfd8", r: "#eb6f92", y: "#f6c177" },
+  tokyonight: { bg: "#1a1b26", m: "#16161e", s: "#292e42", t: "#c0caf5", mu: "#7882b0", a: "#bb9af7", b: "#7aa2f7", g: "#9ece6a", r: "#f7768e", y: "#e0af68" }
+};
+let theme = "frappe";
+function setTheme(n) {
+  const t = THEMES[n]; if (!t) return false;
+  for (const k in t) document.documentElement.style.setProperty("--" + k, t[k]);
+  theme = n; try { localStorage.setItem("rice-theme", n); } catch (e) {}
+  return true;
+}
+(function () {
+  let s = null; try { s = localStorage.getItem("rice-theme"); } catch (e) {}
+  setTheme(THEMES[s] ? s : "frappe");
+})();
 
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* ---------- virtual filesystem (shared by terminal + file manager) ---------- */
+const proj = {};
+PROJECTS.forEach(p => proj[slug(p.title)] = { "README.md": "# " + p.title + "\n\n" + p.description + "\n\nTags: " + p.tags.join(", "), "link.url": p.link });
+const FS = { home: { nicolas: {
+  "about.txt": CFG.name + "\n" + CFG.role + "\n\n" + CFG.bio,
+  "skills.txt": CFG.skills.join("\n"),
+  "contact.txt": "Email: " + CFG.email + "\n" + CFG.socials.map(s => s[0] + ": " + s[1]).join("\n") + "\n\nOr open the Contact app.",
+  projects: proj,
+  documents: { "resume.txt": "Resume coming soon." },
+  ".config": { "rice.conf": "wm = tiling (master-stack)\nbar = polybar-ish\nfont = JetBrains Mono" },
+  ".bashrc": "# nothing to see here, it is all JavaScript"
+} }, etc: { hostname: "rice-box", "os-release": 'NAME="Portfolio OS"\nID=nt' }, tmp: {} };
+const dirAt = p => p.reduce((n, k) => n && typeof n === "object" ? n[k] : undefined, FS);
+function res(cwd, s) {
+  let p = s[0] === "/" ? [] : s[0] === "~" ? ["home", "nicolas"] : [...cwd];
+  for (const k of s.replace(/^~/, "").split("/")) { if (!k || k === ".") continue; if (k === "..") p.pop(); else p.push(k); }
+  return p;
+}
+const showPath = p => { const s = p.join("/"); return s === "home/nicolas" ? "~" : s.startsWith("home/nicolas/") ? "~/" + s.slice(13) : "/" + s; };
 
-document.getElementById("projects").innerHTML = PROJECTS.map(p => `
-  <article class="card">
-    <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)} screenshot" loading="lazy">` : esc((p.title||"?").trim().charAt(0).toUpperCase())}</div>
-    <div class="body">
-      <h3>${esc(p.title)}</h3>
-      ${p.tags && p.tags.length ? `<div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
-      <p>${esc(p.description)}</p>
-      ${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">View project →</a>` : ""}
-    </div>
-  </article>`).join("");
+/* ---------- window manager ---------- */
+const desk = $("#desk");
+let z = 10, uid = 0, cws = 1, foc = null, wins = [];
+const APPS = {};
 
-document.getElementById("skills").innerHTML = SERVICES.map(s => `<div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div>`).join("");
-document.getElementById("links").innerHTML = SOCIALS.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join(" · ");
-document.getElementById("yr").textContent = new Date().getFullYear();
-
-document.getElementById("form").addEventListener("submit", e => {
-  e.preventDefault();
-  const v = id => document.getElementById(id).value.trim();
-  const subject = `Website request: ${v("f-type")} (${v("f-name")})`;
-  const body = `Name: ${v("f-name")}\nEmail: ${v("f-email")}\nProject type: ${v("f-type")}\nBudget: ${v("f-budget") || "Not specified"}\n\n${v("f-msg")}`;
-  window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  document.getElementById("note").textContent = "Opening your email app. If nothing opens, email me directly at " + EMAIL + ".";
+function openApp(name) {
+  const A = APPS[name]; if (!A) return false;
+  if (A.single) { const ex = wins.find(w => w.name === name); if (ex) { showWs(ex.ws); focus(ex); return true; } }
+  const w = { id: ++uid, name, ws: cws, title: A.title };
+  w.el = mk(`<div class="win"><div class="tb"><span>${A.icon} ${A.title}</span><span class="x" title="Close (Alt+Q)">✕</span></div><div class="bd"></div></div>`);
+  $(".x", w.el).onclick = () => closeWin(w);
+  w.el.addEventListener("pointerdown", () => focus(w));
+  dragify(w);
+  desk.appendChild(w.el); wins.push(w);
+  A.mount($(".bd", w.el), w);
+  tile(); focus(w); return true;
+}
+function closeWin(w) {
+  w.el.remove(); wins = wins.filter(x => x !== w);
+  tile(); const n = wins.filter(x => x.ws === cws).pop(); if (n) focus(n); else { foc = null; bar(); }
+}
+function focus(w) {
+  foc = w; w.el.style.zIndex = ++z;
+  wins.forEach(x => x.el.classList.toggle("f", x === w));
+  bar(); const i = $("input,textarea", w.el); if (i && matchMedia("(pointer:fine)").matches) i.focus({ preventScroll: true });
+}
+function tile() {
+  const v = wins.filter(w => w.ws === cws), r = desk.getBoundingClientRect(), g = 8, W = r.width - g * 2, H = r.height - g * 2, n = v.length;
+  v.forEach((w, i) => {
+    let x, y, ww, hh;
+    if (n === 1) { ww = Math.min(W, 1000); hh = Math.min(H, 640); x = (W - ww) / 2; y = (H - hh) / 2; }
+    else if (i === 0) { x = 0; y = 0; ww = W * .55 - g / 2; hh = H; }
+    else { const k = n - 1, h = (H - g * (k - 1)) / k; x = W * .55 + g / 2; y = (i - 1) * (h + g); ww = W * .45 - g / 2; hh = h; }
+    Object.assign(w.el.style, { left: g + x + "px", top: g + y + "px", width: ww + "px", height: hh + "px" });
+  });
+}
+function dragify(w) {
+  const tb = $(".tb", w.el);
+  tb.addEventListener("pointerdown", e => {
+    if (e.target.classList.contains("x") || matchMedia("(max-width:700px)").matches) return;
+    const ox = e.clientX - w.el.offsetLeft, oy = e.clientY - w.el.offsetTop; tb.setPointerCapture(e.pointerId);
+    const mv = ev => { w.el.style.left = Math.max(0, ev.clientX - ox) + "px"; w.el.style.top = Math.max(0, ev.clientY - oy) + "px"; };
+    const up = () => { tb.removeEventListener("pointermove", mv); tb.removeEventListener("pointerup", up); };
+    tb.addEventListener("pointermove", mv); tb.addEventListener("pointerup", up);
+  });
+}
+function showWs(n) {
+  cws = n; wins.forEach(w => w.el.style.display = w.ws === n ? "" : "none");
+  const t = wins.filter(w => w.ws === n).pop(); if (t) focus(t); else { foc = null; bar(); }
+}
+function bar() {
+  $("#wsb").innerHTML = [1, 2, 3, 4].map(n => `<button data-w="${n}" class="${n === cws ? "on" : ""} ${wins.some(w => w.ws === n) ? "occ" : ""}">${n}</button>`).join("");
+  $("#ttl").textContent = foc ? foc.title : CFG.name + " · " + theme;
+}
+$("#wsb").onclick = e => { const n = e.target.dataset.w; if (n) showWs(+n); };
+$("#tilebtn").onclick = tile;
+addEventListener("resize", tile);
+$("#launch").innerHTML = [["terminal", "❯_ term"], ["about", "☺ about"], ["projects", "▦ work"], ["files", "▤ files"], ["browser", "◎ web"], ["contact", "✉ contact"], ["htop", "▥ htop"], ["rice", "✿ rice"]].map(a => `<button data-a="${a[0]}">${a[1]}</button>`).join("");
+$("#launch").onclick = e => { if (e.target.dataset.a) openApp(e.target.dataset.a); };
+addEventListener("keydown", e => {
+  if (!e.altKey) return;
+  if (e.key === "Enter") { e.preventDefault(); openApp("terminal"); }
+  else if (e.key.toLowerCase() === "q" && foc) { e.preventDefault(); closeWin(foc); }
+  else if (e.key.toLowerCase() === "t") { e.preventDefault(); tile(); }
+  else if (/^[1-4]$/.test(e.key)) { e.preventDefault(); showWs(+e.key); }
 });
+function clock() {
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  $("#clk").textContent = d.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" }) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  $("#conky").innerHTML = `<b>${p(d.getHours())}:${p(d.getMinutes())}</b>${d.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" })}<br>${esc(CFG.name)} · <u>${theme}</u><br>Alt+Enter terminal · Alt+1-4 workspaces<br>Alt+Q close · Alt+T tile`;
+}
+clock(); setInterval(clock, 15000);
+
+/* ---------- shared renderers ---------- */
+const cards = () => `<div class="grid">${PROJECTS.map(p => `<div class="pc"><div class="th">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)} screenshot">` : esc(p.title[0])}</div><div class="pb"><b>${esc(p.title)}</b><div class="tg">${p.tags.map(t => `<i>${esc(t)}</i>`).join(" ")}</div><p>${esc(p.description)}</p><a href="${esc(p.link)}" target="_blank" rel="noopener">open project ↗</a></div></div>`).join("")}</div>`;
+const aboutHTML = () => `<div class="pad"><div style="display:flex;gap:16px;align-items:center"><div class="av">${esc(CFG.name.split(" ").map(s => s[0]).join(""))}</div><div><h2>${esc(CFG.name)}</h2><div style="color:var(--mu)">${esc(CFG.role)}</div></div></div><p>${esc(CFG.bio)}</p><div class="chips">${CFG.skills.map(s => `<i>${esc(s)}</i>`).join("")}</div><p><a class="btn p" href="mailto:${esc(CFG.email)}">Request a website</a> ${CFG.socials.map(s => `<a class="btn" href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a>`).join(" ")}</p></div>`;
+
+/* ---------- apps ---------- */
+APPS.about = { title: "about.me", icon: "☺", single: 1, mount: b => b.innerHTML = aboutHTML() };
+APPS.projects = { title: "projects", icon: "▦", single: 1, mount: b => b.innerHTML = cards() };
+
+APPS.rice = { title: "rice settings", icon: "✿", single: 1, mount(b) {
+  const draw = () => b.innerHTML = `<div class="pad"><h2>Pick a colorscheme</h2><p style="color:var(--mu)">Also works in the terminal: <code>theme nord</code></p><div class="sw">${Object.keys(THEMES).map(n => `<button class="${n === theme ? "on" : ""}" data-t="${n}"><span style="color:${THEMES[n].a}">●</span><span style="color:${THEMES[n].b}">●</span><span style="color:${THEMES[n].g}">●</span> ${n}</button>`).join("")}</div></div>`;
+  draw(); b.onclick = e => { const t = e.target.closest("[data-t]"); if (t) { setTheme(t.dataset.t); draw(); clock(); bar(); } };
+} };
+
+APPS.contact = { title: "contact", icon: "✉", single: 1, mount(b) {
+  b.innerHTML = `<div class="pad"><h2>Request a website</h2><p style="color:var(--mu)">Tell me about your project. This opens your email app with everything filled in.</p><form><label>Your name<input name="n" required></label><label>Your email<input name="e" type="email" required></label><label>Project type<select name="t"><option>New website</option><option>Website redesign</option><option>Web app</option><option>Something else</option></select></label><label>About your project<textarea name="m" required></textarea></label><div><button class="btn p" type="submit">Send request</button></div><div class="note" style="color:var(--mu)"></div></form></div>`;
+  $("form", b).onsubmit = e => {
+    e.preventDefault(); const f = e.target, v = k => f.elements[k].value.trim();
+    location.href = `mailto:${CFG.email}?subject=${encodeURIComponent("Website request: " + v("t") + " (" + v("n") + ")")}&body=${encodeURIComponent("Name: " + v("n") + "\nEmail: " + v("e") + "\nType: " + v("t") + "\n\n" + v("m"))}`;
+    $(".note", b).textContent = "Opening your email app. If nothing opens, write to " + CFG.email + ".";
+  };
+} };
+
+APPS.files = { title: "files", icon: "▤", mount(b) {
+  let p = ["home", "nicolas"];
+  b.innerHTML = `<div class="fm"><div class="side"></div><div class="fmm"><div class="pth"></div><div class="lst"></div><pre class="prev"></pre></div></div>`;
+  const side = $(".side", b), pth = $(".pth", b), lst = $(".lst", b), prev = $(".prev", b);
+  side.innerHTML = [["Home", "home/nicolas"], ["Projects", "home/nicolas/projects"], ["Documents", "home/nicolas/documents"], ["Config", "home/nicolas/.config"], ["/", ""]].map(x => `<button data-p="${x[1]}">${x[0]}</button>`).join("");
+  side.onclick = e => { if (e.target.dataset.p !== undefined) { p = e.target.dataset.p.split("/").filter(Boolean); draw(); } };
+  function draw() {
+    const d = dirAt(p); pth.textContent = showPath(p); prev.textContent = "Click a file to preview it.";
+    const ent = Object.keys(d).sort((a, c) => (typeof d[c] === "object") - (typeof d[a] === "object") || a.localeCompare(c));
+    lst.innerHTML = (p.length ? `<button data-k="..">📁 ..</button>` : "") + ent.map(k => `<button data-k="${esc(k)}">${typeof d[k] === "object" ? "📁" : k.endsWith(".url") ? "🔗" : "📄"} ${esc(k)}</button>`).join("");
+  }
+  lst.onclick = e => {
+    const k = e.target.dataset.k; if (!k) return; const d = dirAt(p);
+    if (k === "..") { p.pop(); draw(); } else if (typeof d[k] === "object") { p.push(k); draw(); }
+    else if (k.endsWith(".url")) prev.innerHTML = `<a href="${esc(d[k])}" target="_blank" rel="noopener">${esc(d[k])} ↗</a>`; else prev.textContent = d[k];
+  };
+  draw();
+} };
+
+APPS.browser = { title: "web", icon: "◎", single: 1, mount(b) {
+  b.innerHTML = `<div class="br"><div class="ab"><button data-n="-1">←</button><button data-n="1">→</button><input spellcheck="false" placeholder="Search or enter address"></div><div class="pg"></div></div>`;
+  const inp = $("input", b), pg = $(".pg", b); let h = [], i = -1;
+  const PAGES = {
+    "nicolas://start": () => `<div class="pad" style="text-align:center;padding-top:40px"><h2 style="font-size:28px">${esc(CFG.name)}</h2><p style="color:var(--mu)">Type an address above, or jump to:</p><p><a href="#" class="btn" data-go="nicolas://about">about</a> <a href="#" class="btn" data-go="nicolas://projects">projects</a></p></div>`,
+    "nicolas://about": aboutHTML, "nicolas://projects": cards
+  };
+  function show() {
+    const u = h[i]; inp.value = u;
+    pg.innerHTML = PAGES[u] ? PAGES[u]() : `<div class="pad"><h2>Open in a new tab</h2><p style="color:var(--mu)">Most sites don’t allow themselves to be shown inside other pages, so this browser opens real websites in a separate tab.</p><a class="btn p" href="${esc(u)}" target="_blank" rel="noopener">Open ${esc(u)} ↗</a></div>`;
+  }
+  function go(u) {
+    u = u.trim(); if (!u) return;
+    if (!/^[a-z]+:\/\//i.test(u)) {
+      if (/^[\w-]+(\.[\w-]+)+(\/.*)?$/.test(u)) u = "https://" + u;
+      else { window.open("https://duckduckgo.com/?q=" + encodeURIComponent(u), "_blank", "noopener"); return; }
+    }
+    h = h.slice(0, i + 1); h.push(u); i = h.length - 1; show();
+  }
+  inp.onkeydown = e => { if (e.key === "Enter") go(inp.value); };
+  b.onclick = e => { const n = e.target.dataset.n, g = e.target.dataset.go; if (n) { const j = i + +n; if (h[j]) { i = j; show(); } } if (g) { e.preventDefault(); go(g); } };
+  go("nicolas://start");
+} };
+
+/* ---------- htop (fake, but it moves) ---------- */
+APPS.htop = { title: "htop", icon: "▥", single: 1, mount(b, w) {
+  b.classList.add("term"); b.tabIndex = 0; b.style.cursor = "default"; b.innerHTML = '<pre style="margin:0;font:inherit"></pre>';
+  const pre = $("pre", b), t0 = Date.now();
+  const mkp = (pid, user, pri, ni, virt, res, shr, base, mem, cmd) => ({ pid, user, pri, ni, virt, res, shr, base, mem, cmd, cpu: base, t: Math.random() * 600 });
+  let P = [
+    mkp(1204, "nicolas", 20, 0, "1.2G", "312M", "98M", 14, 4.1, "node server.js --portfolio"),
+    mkp(1377, "nicolas", 20, 0, "842M", "210M", "77M", 9, 2.7, "webpack --watch"),
+    mkp(2210, "nicolas", 20, 0, "32.4G", "1.1G", "240M", 7, 14.3, "chrome --type=renderer (47 tabs)"),
+    mkp(1888, "nicolas", 20, 0, "612M", "88M", "41M", 5, 1.1, "vim index.html"),
+    mkp(903, "nicolas", 20, 0, "4.8G", "402M", "120M", 4, 5.2, "figma-agent"),
+    mkp(1511, "nicolas", 20, 0, "1.9G", "256M", "66M", 3, 3.3, "npm run dev"),
+    mkp(3001, "nicolas", 39, 19, "2.2G", "190M", "55M", 2, 2.4, "coffee --refill --urgent"),
+    mkp(2301, "nicolas", 20, 0, "512M", "64M", "30M", 1, 0.8, "spotify --minimized"),
+    mkp(66, "root", 0, -20, "0", "0", "0", 0.5, 0, "[kworker/0:1H-kblockd]"),
+    mkp(1, "root", 20, 0, "168M", "12M", "8M", 0.4, 0.1, "/sbin/init"),
+    mkp(412, "root", 20, 0, "88M", "9M", "6M", 0.3, 0.1, "nginx: master process"),
+    mkp(777, "nicolas", 20, 0, "24M", "6M", "4M", 0.2, 0.1, "-bash"),
+    mkp(555, "root", 20, 0, "14M", "4M", "3M", 0.1, 0, "sshd: /usr/sbin/sshd -D")
+  ];
+  let sel = 0, S = [], id;
+  const c = (k, s) => `<span style="color:var(--${k})">${s}</span>`;
+  const pad = (v, n) => String(v).padStart(n);
+  const meter = (lab, f, txt, c2) => {
+    const W = 24, n = Math.round(f * W), s = W - txt.length, gn = Math.ceil(n * .7); let h = "";
+    for (let i = 0; i < W; i++) h += i >= s ? txt[i - s] : i < gn ? c("g", "|") : i < n ? c(c2, "|") : " ";
+    return lab + c("mu", "[") + h + c("mu", "]");
+  };
+  const fmt = t => Math.floor(t / 60) + ":" + (t % 60).toFixed(2).padStart(5, "0");
+  const hdr = pad("PID", 5) + " " + "USER".padEnd(9) + pad("PRI", 4) + pad("NI", 4) + pad("VIRT", 6) + pad("RES", 6) + pad("SHR", 6) + " S" + pad("CPU%", 6) + pad("MEM%", 5) + pad("TIME+", 10) + "  Command";
+  function tick() {
+    if (!b.isConnected) return clearInterval(id);
+    P.forEach(p => { p.cpu = Math.max(0, p.base * (.4 + Math.random() * 1.2) + (Math.random() < .08 ? Math.random() * 8 : 0)); p.t += p.cpu / 100 * 1.5; });
+    S = [...P].sort((x, y) => y.cpu - x.cpu); sel = Math.min(sel, S.length - 1);
+    const tot = P.reduce((a, p) => a + p.cpu, 0), cf = [0, 1, 2, 3].map(() => Math.min(.98, tot / 200 * (.5 + Math.random() * 1.1)));
+    const mem = 2.3 + Math.random() * .08, u = Math.floor((Date.now() - t0) / 1000) + 754, z2 = n => String(n).padStart(2, "0");
+    const cm = i => meter(" " + (i + 1) + " ", cf[i], (cf[i] * 100).toFixed(1) + "%", "r");
+    const H = [
+      cm(0) + "   Tasks: " + c("g", "87") + ", 214 thr; " + c("g", "2") + " running",
+      cm(1) + "   Load average: " + ["0.52", "0.48", "0.41"].map(x => c("b", x)).join(" "),
+      cm(2) + "   Uptime: " + c("b", z2(Math.floor(u / 3600)) + ":" + z2(Math.floor(u / 60) % 60) + ":" + z2(u % 60)),
+      cm(3),
+      meter("Mem", mem / 7.7, mem.toFixed(2) + "G/7.7G", "b"),
+      meter("Swp", .01, "0K/2.0G", "r")
+    ];
+    const row = (s, st) => st ? `<span style="${st}">${s.padEnd(84)}</span>` : s;
+    const rows = S.map((p, i) => row(pad(p.pid, 5) + " " + p.user.padEnd(9) + pad(p.pri, 4) + pad(p.ni, 4) + pad(p.virt, 6) + pad(p.res, 6) + pad(p.shr, 6) + " " + (p.cpu > 4 ? "R" : "S") + pad(p.cpu.toFixed(1), 6) + pad(p.mem.toFixed(1), 5) + pad(fmt(p.t), 10) + "  " + esc(p.cmd), i === sel ? "background:var(--b);color:var(--m)" : ""));
+    const fk = [["1", "Help"], ["2", "Setup"], ["3", "Search"], ["4", "Filter"], ["5", "Tree"], ["6", "SortBy"], ["7", "Nice -"], ["8", "Nice +"], ["9", "Kill"], ["10", "Quit"]].map(k => `F${k[0]}<span ${k[0] === "10" ? 'data-q="1" ' : ""}style="background:var(--b);color:var(--m);cursor:pointer">${k[1].padEnd(6)}</span>`).join("");
+    pre.innerHTML = H.join("\n") + "\n\n" + row(hdr, "background:var(--g);color:var(--m)") + "\n" + rows.join("\n") + "\n\n" + fk;
+  }
+  b.addEventListener("keydown", e => {
+    if (e.key === "q" || e.key === "F10") { e.preventDefault(); closeWin(w); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(S.length - 1, sel + 1); tick(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(0, sel - 1); tick(); }
+    else if ((e.key === "F9" || e.key === "k") && P.length > 5) { e.preventDefault(); P = P.filter(p => p !== S[sel]); tick(); }
+  });
+  b.onclick = e => { if (e.target.closest("[data-q]")) closeWin(w); else b.focus(); };
+  id = setInterval(tick, 1500); tick(); b.focus();
+} };
+
+/* ---------- terminal: a hand-built bash ---------- */
+APPS.terminal = { title: "terminal", icon: "❯_", mount(b, w) {
+  b.classList.add("term");
+  b.innerHTML = `<div class="o"></div><div class="ln"><span class="ps"></span><input spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="terminal input"></div>`;
+  const out = $(".o", b), inp = $("input", b), ps = $(".ps", b);
+  let cwd = ["home", "nicolas"], hist = [], hi = 0;
+  const col = (c, t) => `<span style="color:var(--${c})">${t}</span>`;
+  const prompt = () => col("a", "<b>nicolas</b>") + "@" + col("b", "<b>rice-box</b>") + " " + col("y", showPath(cwd)) + " " + col("g", "<b>❯</b>") + " ";
+  const print = h => { const d = document.createElement("div"); d.innerHTML = h; out.appendChild(d); b.scrollTop = b.scrollHeight; };
+  const setPs = () => ps.innerHTML = prompt();
+  const CMDS = ["help", "ls", "cd", "pwd", "cat", "tree", "echo", "clear", "whoami", "hostname", "uname", "date", "uptime", "history", "neofetch", "theme", "open", "mkdir", "touch", "rm", "sudo", "vim", "nano", "ping", "cowsay", "fortune", "projects", "exit", "man", "git", "curl", "ssh", "htop", "top"];
+  const FORT = ["A good website loads before the user blinks.", "There are 10 kinds of people: those who read binary and those who don’t.", "It works on my machine. Ship the machine.", "Real developers center divs on the first try.", "rm -rf node_modules fixes 90% of problems."];
+  const ls = (d, all) => Object.keys(d).filter(k => all || k[0] !== ".").sort().map(k => typeof d[k] === "object" ? col("b", "<b>" + esc(k) + "/</b>") : esc(k)).join("  ");
+  const tree = (d, pre) => Object.keys(d).filter(k => k[0] !== ".").sort().map((k, i, a) => { const last = i === a.length - 1; return pre + (last ? "└── " : "├── ") + (typeof d[k] === "object" ? col("b", esc(k)) + "\n" + tree(d[k], pre + (last ? "    " : "│   ")) : esc(k) + "\n"); }).join("");
+  const nf = () => {
+    const L = ["       /\\", "      /  \\", "     /    \\", "    /      \\", "   /   ,,   \\", "  /   |  |   \\", " /_-''    ''-_\\", "/-'          '-\\"], I = [col("a", "<b>nicolas</b>") + "@" + col("a", "<b>rice-box</b>"), "-----------------", col("a", "OS") + "      Portfolio OS (JavaScript)", col("a", "WM") + "      tiling, master-stack", col("a", "Theme") + "   " + theme, col("a", "Role") + "    " + esc(CFG.role), col("a", "Shell") + "   bash (rebuilt by hand)", col("a", "Try") + "     help, projects, theme nord"];
+    return I.map((x, i) => col("b", (L[i] || "").padEnd(16)) + "  " + x).join("\n");
+  };
+  const A = {
+    help: () => "Commands: " + CMDS.join(" ") + "\nTry: " + col("g", "neofetch") + ", " + col("g", "projects") + ", " + col("g", "open browser") + ", " + col("g", "theme tokyonight") + ", " + col("g", "cat about.txt"),
+    ls: a => { const all = a.includes("-a") || a.includes("-la"), t = a.find(x => x[0] !== "-"), d = dirAt(t ? res(cwd, t) : cwd); return d === undefined ? "ls: cannot access: No such file or directory" : typeof d === "string" ? esc(t) : ls(d, all); },
+    cd: a => { const p = res(cwd, a[0] || "~"), d = dirAt(p); if (d === undefined) return "cd: " + esc(a[0]) + ": No such file or directory"; if (typeof d === "string") return "cd: " + esc(a[0]) + ": Not a directory"; cwd = p; },
+    pwd: () => "/" + cwd.join("/"),
+    cat: a => a.map(f => { const d = dirAt(res(cwd, f)); return d === undefined ? "cat: " + esc(f) + ": No such file or directory" : typeof d === "object" ? "cat: " + esc(f) + ": Is a directory" : esc(d); }).join("\n") || "usage: cat <file>",
+    tree: () => col("b", showPath(cwd)) + "\n" + tree(dirAt(cwd), ""),
+    echo: a => esc(a.join(" ")),
+    clear: () => { out.innerHTML = ""; },
+    whoami: () => "nicolas", hostname: () => "rice-box",
+    uname: () => "Portfolio 6.9.0-rice #1 SMP PREEMPT_DYNAMIC JS", date: () => new Date().toString(),
+    uptime: () => "up " + Math.round(performance.now() / 60000) + " min, 1 user, load average: 0.00, 0.00, 0.00",
+    history: () => hist.map((h, i) => String(i + 1).padStart(4) + "  " + esc(h)).join("\n"),
+    neofetch: nf, projects: () => PROJECTS.map(p => col("a", "<b>" + esc(p.title) + "</b>") + "  " + esc(p.description) + "\n  " + `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.link)}</a>`).join("\n\n"),
+    theme: a => !a[0] ? "themes: " + Object.keys(THEMES).join(" ") + "\ncurrent: " + theme : setTheme(a[0]) ? (clock(), bar(), "theme set to " + a[0]) : "unknown theme. try: " + Object.keys(THEMES).join(" "),
+    open: a => { const n = { term: "terminal", terminal: "terminal", web: "browser", browser: "browser", about: "about", projects: "projects", files: "files", contact: "contact", rice: "rice", htop: "htop" }[a[0]]; return n ? (setTimeout(() => openApp(n), 0), "opening " + n + "…") : "usage: open <terminal|about|projects|files|browser|contact|htop|rice>"; },
+    mkdir: a => { const p = res(cwd, a[0] || ""), n = p.pop(), d = dirAt(p); if (!n || typeof d !== "object") return "mkdir: cannot create directory"; d[n] = d[n] || {}; },
+    touch: a => { const p = res(cwd, a[0] || ""), n = p.pop(), d = dirAt(p); if (!n || typeof d !== "object") return "touch: cannot touch"; if (d[n] === undefined) d[n] = ""; },
+    rm: a => { if (a.join(" ").includes("/ ") || a.includes("/")) return "rm: nice try. 🙂"; const f = a.filter(x => x[0] !== "-")[0] || "", p = res(cwd, f), n = p.pop(), d = dirAt(p); if (typeof d !== "object" || d[n] === undefined) return "rm: cannot remove " + esc(f) + ": No such file or directory"; delete d[n]; },
+    sudo: () => "nicolas is not in the sudoers file. This incident will be reported.",
+    vim: () => "E492: Not an editor command. (Also: you can’t quit.) Just kidding, type " + col("g", "exit") + ".", nano: () => A.vim(),
+    ping: a => "PING " + esc(a[0] || "localhost") + ": 64 bytes: icmp_seq=1 ttl=64 time=0.042 ms\n(simulated, no packets were harmed)",
+    cowsay: a => { const t = esc(a.join(" ") || "hire nicolas"); return " " + "_".repeat(t.length + 2) + "\n< " + t + " >\n " + "-".repeat(t.length + 2) + "\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"; },
+    fortune: () => FORT[Math.floor(Math.random() * FORT.length)],
+    man: a => "No manual entry for " + esc(a[0] || "") + ". Try " + col("g", "help") + ".",
+    git: () => "On branch main\nnothing to commit, portfolio clean", curl: () => "curl: (6) Could not resolve host. This machine lives in your browser.", ssh: () => "ssh: connect to host: Connection refused (it’s a website)",
+    htop: () => (setTimeout(() => openApp("htop"), 0), "starting htop…"), top: () => A.htop(),
+    exit: () => { setTimeout(() => closeWin(w), 0); return "logout"; }
+  };
+  function run(line) {
+    print(prompt() + esc(line));
+    const t = line.trim(); if (!t) return;
+    hist.push(t); hi = hist.length;
+    let args = [...t.matchAll(/"([^"]*)"|'([^']*)'|(\S+)/g)].map(m => m[1] ?? m[2] ?? m[3]); const cmd = args.shift();
+    const gt = args.indexOf(">");
+    if (cmd === "echo" && gt > -1) {
+      const f = args[gt + 1], p = res(cwd, f || ""), n = p.pop(), d = dirAt(p);
+      if (!f || !n || typeof d !== "object") return print("bash: syntax error"); d[n] = args.slice(0, gt).join(" "); return;
+    }
+    if (!A[cmd]) return print("bash: " + esc(cmd) + ": command not found. Try " + col("g", "help"));
+    const r = A[cmd](args); if (r) print(r);
+  }
+  function complete() {
+    const v = inp.value, parts = v.split(/\s+/), last = parts.pop();
+    let opts;
+    if (!parts.length) opts = CMDS.filter(c => c.startsWith(last));
+    else { const i = last.lastIndexOf("/"), dir = last.slice(0, i + 1), d = dirAt(res(cwd, dir || ".")), pre = last.slice(i + 1); opts = typeof d === "object" ? Object.keys(d).filter(k => k.startsWith(pre)).map(k => dir + k + (typeof d[k] === "object" ? "/" : "")) : []; }
+    if (opts.length === 1) inp.value = [...parts, opts[0]].join(" ") + (opts[0].endsWith("/") ? "" : " ");
+    else if (opts.length > 1) print(prompt() + esc(v) + "\n" + opts.map(esc).join("  "));
+  }
+  inp.onkeydown = e => {
+    if (e.key === "Enter") { const v = inp.value; inp.value = ""; run(v); setPs(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); if (hi > 0) inp.value = hist[--hi]; }
+    else if (e.key === "ArrowDown") { e.preventDefault(); hi = Math.min(hi + 1, hist.length); inp.value = hist[hi] || ""; }
+    else if (e.key === "Tab") { e.preventDefault(); complete(); }
+    else if (e.ctrlKey && e.key === "l") { e.preventDefault(); out.innerHTML = ""; }
+    else if (e.ctrlKey && e.key === "c") { e.preventDefault(); print(prompt() + esc(inp.value) + "^C"); inp.value = ""; }
+  };
+  b.onclick = () => { if (!getSelection().toString()) inp.focus(); };
+  print(nf()); print("\nType " + col("g", "help") + " to see what this shell can do."); setPs();
+} };
+
+/* ---------- boot ---------- */
+bar();
+openApp("about"); openApp("terminal");
 </script>
 </body>
 </html>
