@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tile Editor</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#1b1b1f;color:#eee;font:14px "Segoe UI","Open Sans",Arial,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:#111;flex-wrap:wrap}
+header h1{font-size:20px;font-weight:300;margin:0 auto 0 0}
+button,select{font:inherit;color:#eee;background:#33363d;border:1px solid #555;padding:5px 12px;cursor:pointer}
+button:hover{background:#444851}button.on,button.pri{background:#0078d7;border-color:#0078d7}
+main{display:grid;grid-template-columns:270px 1fr 360px;gap:12px;padding:12px;align-items:start}
+@media(max-width:1000px){main{grid-template-columns:1fr}}
+.card{background:#25272d;padding:10px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#9aa;margin:0 0 8px;font-weight:600}
+label{display:block;margin:0 0 10px;font-size:12px;color:#aab}
+input:not([type=color]):not([type=file]),textarea,select{display:block;width:100%;margin-top:3px;background:#17181c;color:#eee;border:1px solid #555;padding:6px;font:inherit}
+input[type=color]{width:42px;height:30px;padding:0;border:1px solid #555;background:none}
+textarea{resize:vertical}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:3px}
+.li{display:flex;align-items:center;gap:6px;padding:5px;cursor:pointer;border-left:3px solid transparent}
+.li.on{background:#33363d;border-color:#0078d7}.li .nm{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.li .ty{font-size:10px;color:#889}.li button{padding:0 5px;font-size:12px}
+.sw{width:14px;height:14px;flex:none}
+#prev{display:grid;grid-template-rows:repeat(6,46px);grid-auto-flow:column dense;grid-auto-columns:46px;gap:4px;overflow:auto;padding:10px;background:#2d1b69;margin-bottom:12px}
+.pt{color:#fff;padding:4px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;outline-offset:2px}
+.pt.on{outline:2px solid #fff}.pt i{font-style:normal;font-size:18px;line-height:1}.pt b{font-weight:400;font-size:9px}
+.pt.l i,.pt.w i{font-size:34px}.pt i img{width:1em;height:1em;object-fit:contain;display:block}
+.pt.s{grid-area:span 1/span 1}.pt.m{grid-area:span 2/span 2}.pt.w{grid-area:span 2/span 4}.pt.l{grid-area:span 4/span 4}
+.gm{border:1px solid #444;padding:8px;margin-bottom:8px}
+.pc{width:20px;height:20px;cursor:pointer;display:inline-block;border:1px solid #fff3}
+.thumb{position:relative;display:inline-block}.thumb img{height:60px;display:block}
+.thumb button{position:absolute;top:0;right:0;padding:0 5px}
+.ic{height:44px;width:44px;object-fit:contain;background:#2d1b69}
+#out{height:420px;font:12px Consolas,monospace;white-space:pre}
+small{color:#889}
+</style>
+</head>
+<body>
+<header>
+ <h1>Tile Editor</h1>
+ <button id="open">Open portfolio.html…</button><input type="file" id="openf" accept=".html" hidden>
+ <button id="dlsite" disabled title="Open your portfolio.html first">Download updated portfolio.html</button>
+</header>
+<main>
+ <aside class="card">
+  <h2>Tiles</h2>
+  <div class="row" style="margin-bottom:8px"><select id="newtype"></select><button id="add" class="pri">+ Add tile</button></div>
+  <div id="list"></div>
+  <h2 style="margin-top:16px">Site settings</h2>
+  <div id="side"></div>
+ </aside>
+ <section>
+  <div id="prev"></div>
+  <div class="card" id="form"></div>
+ </section>
+ <aside class="card">
+  <h2>JSON <small id="sz"></small></h2>
+  <textarea id="out" spellcheck="false"></textarea>
+  <div class="row" style="margin-top:8px"><button id="copy" class="pri">Copy JSON</button><button id="dljson">Download .json</button><button id="load">Load from box</button></div>
+  <p><small>Paste this JSON between the &lt;script id="site-data"&gt; tags at the top of your portfolio.html, or use “Open portfolio.html” and “Download updated portfolio.html” to do it for you. You can also edit the box and press “Load from box”.</small></p>
+ </aside>
+</main>
+<script>
+const DEF={"profile": {"name": "Nicolas Tama", "tagline": "Web designer & programmer", "email": "tamanicolas305@gmail.com"}, "skills": ["HTML", "CSS", "JavaScript", "UI design", "Responsive layouts", "Web apps", "Animation", "Prototyping"], "facts": ["I’m building this page as a Windows 8.1 Start screen.", "Tiles flip on their own: watch the small ones.", "Try the Magic 8-Ball for big decisions.", "Tap the palette tile to change the Start colour."], "tiles": [{"id": "about", "type": "about", "size": "l", "color": "#0063b1", "icon": "👋", "label": "About me", "back": "Hi, I’m Nicolas. I design and build websites that feel good to use.", "body": "I’m Nicolas Tama, a web designer and programmer. I take websites from first sketch to launch: clean design, solid code and a layout that works on every screen."}, {"id": "contact", "type": "contact", "size": "w", "color": "#e81123", "icon": "✉️", "label": "Contact me", "back": "Need a website? Let’s talk about your project."}, {"id": "pricing", "type": "pricing", "size": "m", "color": "#0050ef", "icon": "💳", "label": "Pricing", "back": "Plans from $699. One-time or managed.", "plans": [{"label": "One-time payment", "name": "Self-Hosted", "badge": "", "price": "$999", "priceNote": "", "recurring": "", "recurringNote": "", "features": ["Custom website development", "Mobile responsive design", "Contact forms", "E-commerce functionality", "Complete website files", "Customer handles hosting"], "highlight": false}, {"label": "Monthly billing", "name": "Managed Monthly", "badge": "", "price": "$799", "priceNote": "Upfront development fee", "recurring": "$29/month", "recurringNote": "", "features": ["Managed Hostinger hosting", "SSL certificate", "Backups", "Basic maintenance", "Technical support"], "highlight": false}, {"label": "", "name": "Managed Annual", "badge": "Best value · Save 20%", "price": "$699", "priceNote": "Upfront development fee", "recurring": "$278.40/year", "recurringNote": "$23.20/month equivalent, billed annually", "features": ["Managed Hostinger hosting", "SSL certificate", "Backups", "Basic maintenance", "Technical support"], "highlight": true}]}, {"id": "p0", "type": "project", "size": "m", "color": "#0078d7", "icon": "🌐", "label": "Project One", "back": "", "desc": "Describe this website or app: what it does, who it was for, and the tech behind it.", "url": "", "tags": ["HTML", "CSS", "JS"], "shots": []}, {"id": "p1", "type": "project", "size": "w", "color": "#d13438", "icon": "🎨", "label": "Project Two", "back": "", "desc": "Describe this project: your role, the challenge and the result.", "url": "", "tags": ["Design", "UI"], "shots": []}, {"id": "p2", "type": "project", "size": "m", "color": "#00a300", "icon": "⚙️", "label": "Project Three", "back": "", "desc": "Describe this project here.", "url": "", "tags": ["Node", "API"], "shots": []}, {"id": "p3", "type": "project", "size": "m", "color": "#e3a21a", "icon": "🛒", "label": "Project Four", "back": "", "desc": "Describe this project here.", "url": "", "tags": ["React"], "shots": []}, {"id": "skills", "type": "skills", "size": "m", "color": "#008272", "icon": "🛠️", "label": "Skills", "back": "HTML · CSS · JavaScript · UI design · Responsive layouts"}, {"id": "ball", "type": "ball", "size": "m", "color": "#1a1a1a", "icon": "🎱", "label": "Magic 8-Ball", "back": "Ask me anything…"}, {"id": "games", "type": "games", "size": "w", "color": "#107c10", "icon": "🎮", "label": "Games", "back": "Retro games, playable right here.", "games": [{"id": "doom", "title": "DOOM", "core": "doom", "url": "", "bios": "", "cover": "👹"}, {"id": "pacman", "title": "Pac-Man", "core": "mame2003", "url": "", "bios": "", "cover": "🟡"}, {"id": "smb", "title": "Super Mario Bros.", "core": "nes", "url": "", "bios": "", "cover": "🍄"}]}, {"id": "facts", "type": "facts", "size": "s", "color": "#8764b8", "icon": "💡", "label": "Fun", "back": ""}, {"id": "accent", "type": "accent", "size": "s", "color": "#ca5010", "icon": "🎨", "label": "Colour", "back": "Pick a colour"}, {"id": "mail", "type": "mail", "size": "s", "color": "#4c4a48", "icon": "@", "label": "Mail", "back": "Say hi"}], "emulator": {"path": "https://cdn.emulatorjs.org/stable/data/"}};
+let S=JSON.parse(JSON.stringify(DEF)),sel=0,html=null;
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isImg=s=>/^(data:image|https?:|\.{0,2}\/)|\.(png|jpe?g|gif|svg|webp)$/i.test(s||'');
+const ico=s=>isImg(s)?`<img src="${esc(s)}" alt="">`:esc(s||'');
+const TYPES={pricing:'Pricing plans',games:'Games (emulator)',project:'Project (screenshots)',page:'Info page',link:'Link (opens a site)',about:'About me',contact:'Contact form',skills:'Skills',ball:'Magic 8-Ball',facts:'Fun facts',accent:'Colour picker',mail:'Mail shortcut'};
+const SIZES={s:'Small',m:'Medium',w:'Wide',l:'Large'};
+const PAL=['#0078d7','#0063b1','#d13438','#e81123','#00a300','#008272','#e3a21a','#ca5010','#8764b8','#5c2d91','#2d7d9a','#4c4a48','#1a1a1a','#e3008c'];
+const CORES=[['nes','NES'],['snes','SNES'],['n64','Nintendo 64'],['gb','Game Boy / Color'],['gba','Game Boy Advance'],['nds','Nintendo DS'],['segaMS','Master System'],['segaMD','Genesis / Mega Drive'],['segaGG','Game Gear'],['segaCD','Sega CD'],['sega32x','Sega 32X'],['segaSaturn','Saturn'],['atari2600','Atari 2600'],['atari5200','Atari 5200'],['atari7800','Atari 7800'],['lynx','Atari Lynx'],['jaguar','Jaguar'],['pce','PC Engine'],['ngp','Neo Geo Pocket'],['ws','WonderSwan'],['vb','Virtual Boy'],['3do','3DO'],['psx','PlayStation'],['psp','PSP'],['arcade','Arcade (FBNeo)'],['mame2003','Arcade (MAME 2003)'],['doom','DOOM'],['colecovision','ColecoVision']];
+let gtarget=0;
+function plansForm(t){const a=(n,k,v,l)=>`<label>${l}<input data-pn="${n}" data-pk="${k}" value="${esc(v)}"></label>`;
+ return `<h2 style="margin-top:14px">Plans <small>(shown left to right)</small></h2>`+t.plans.map((p,n)=>`<div class="gm"><div class="row" style="justify-content:space-between"><b>${esc(p.name||'Plan')}</b><span><button data-a="pup" data-n="${n}">←</button> <button data-a="pdn" data-n="${n}">→</button> <button data-a="pdel" data-n="${n}">✕</button></span></div>`
+ +a(n,'label',p.label,'Small label above name (e.g. One-time payment)')+a(n,'name',p.name,'Plan name')+a(n,'badge',p.badge,'Badge (optional, e.g. Best value)')+a(n,'price',p.price,'Main price')+a(n,'priceNote',p.priceNote,'Note under main price')+a(n,'recurring',p.recurring,'Recurring price (optional)')+a(n,'recurringNote',p.recurringNote,'Note under recurring price')
+ +`<label>Features (one per line)<textarea data-pn="${n}" data-pk="features" data-plist="1" rows="5">${esc((p.features||[]).join('\n'))}</textarea></label><label><input type="checkbox" data-pn="${n}" data-pk="highlight" ${p.highlight?'checked':''} style="display:inline;width:auto;margin-right:6px">Highlight this plan</label></div>`).join('')+`<button data-a="padd" class="pri">+ Add plan</button>`}
+function gamesForm(t){const a=(n,k,v,l)=>`<label>${l}<input data-gn="${n}" data-gk="${k}" value="${esc(v)}"></label>`;
+ return `<h2 style="margin-top:14px">Games</h2><datalist id="cores">${CORES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('')}</datalist>`+t.games.map((g,n)=>`<div class="gm"><div class="row" style="justify-content:space-between"><b>${esc(g.title||'Untitled')}</b><span><button data-a="gup" data-n="${n}">↑</button> <button data-a="gdn" data-n="${n}">↓</button> <button data-a="gdel" data-n="${n}">✕</button></span></div>`
+ +a(n,'title',g.title,'Title')+`<label>Emulator core (pick or type any EmulatorJS core)<input list="cores" data-gn="${n}" data-gk="core" value="${esc(g.core)}"></label>`+a(n,'url',g.url,'ROM link (URL, or a path on your site)')+a(n,'bios',g.bios,'BIOS link (optional)')
+ +`<label>Cover<div class="row">${g.cover&&g.cover.startsWith('data:')?`<img class="ic" src="${esc(g.cover)}" alt=""><button data-a="gcrm" data-n="${n}">Remove</button>`:`<input data-gn="${n}" data-gk="cover" value="${esc(g.cover)}" style="flex:1;margin:0">`}<button data-a="gcup" data-n="${n}">Upload…</button></div></label></div>`).join('')
+ +`<div class="row"><select id="gsys" style="width:auto">${CORES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('')}</select><button data-a="gadd" class="pri">+ Add game</button></div><input type="file" id="fg" accept="image/*" hidden>`}
+const json=()=>JSON.stringify(S,null,2).replace(/</g,'\\u003c');
+const uid=()=>'t'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const SCRIPT_RE=/(<script id="site-data" type="application\/json">)[\s\S]*?(<\/script>)/;
+$('#newtype').innerHTML=Object.entries(TYPES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
+
+function fix(t){if(t.type==='pricing')t.plans=t.plans||[];if(t.type==='games')t.games=t.games||[];if(t.type==='project'){t.tags=t.tags||[];t.shots=t.shots||[];t.desc=t.desc||'';t.url=t.url||''}if(t.type==='page'||t.type==='about')t.body=t.body||'';if(t.type==='page'||t.type==='link')t.url=t.url||'';}
+function drawAll(){list();prev();form();side();out()}
+function list(){$('#list').innerHTML=S.tiles.map((t,i)=>`<div class="li ${i==sel?'on':''}" data-i="${i}"><span class="sw" style="background:${esc(t.color)}"></span><span class="nm">${esc(t.label||'(untitled)')}</span><span class="ty">${esc(t.type)}</span><button data-a="up" title="Move up">↑</button><button data-a="dn" title="Move down">↓</button><button data-a="dup" title="Duplicate">⧉</button><button data-a="del" title="Delete">✕</button></div>`).join('')}
+function prev(){$('#prev').innerHTML=S.tiles.map((t,i)=>`<div class="pt ${esc(t.size)} ${i==sel?'on':''}" data-i="${i}" style="background:${esc(t.color)}"><i>${ico(t.icon)}</i><b>${esc(t.label)}</b></div>`).join('')}
+function out(){const j=json();$('#out').value=j;$('#sz').textContent=' · '+(j.length/1024).toFixed(1)+' KB'}
+function side(){const p=S.profile;$('#side').innerHTML=`<label>Name<input data-g="name" value="${esc(p.name)}"></label><label>Tagline<input data-g="tagline" value="${esc(p.tagline)}"></label><label>Contact email<input data-g="email" value="${esc(p.email)}"></label><label>Skills (comma separated)<textarea data-g="skills" rows="3">${esc(S.skills.join(', '))}</textarea></label><label>Emulator files path (EmulatorJS data folder)<input data-g="emupath" value="${esc(S.emulator.path)}"></label><label>Fun facts (one per line)<textarea data-g="facts" rows="4">${esc(S.facts.join('\n'))}</textarea></label>`}
+function form(){const t=S.tiles[sel];if(!t){$('#form').innerHTML='<p>No tiles yet. Use “Add tile”.</p>';return}
+ const inp=(k,l)=>`<label>${l}<input data-k="${k}" value="${esc(t[k])}"></label>`,ta=(k,l,r)=>`<label>${l}<textarea data-k="${k}" rows="${r}">${esc(t[k])}</textarea></label>`;
+ let h=`<h2>Edit tile</h2>`+inp('label','Title')+`<label>Type<select data-k="type">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k==t.type?'selected':''}>${v}</option>`).join('')}</select></label>`
+ +`<label>Size<div class="row">${Object.entries(SIZES).map(([k,v])=>`<button data-size="${k}" class="${t.size==k?'on':''}">${v}</button>`).join('')}</div></label>`
+ +`<label>Colour<div class="row"><input type="color" data-k="color" value="${esc(t.color)}">${PAL.map(c=>`<span class="pc" data-c="${c}" style="background:${c}"></span>`).join('')}</div></label>`
+ +`<label>Icon: emoji, text, or your own image<div class="row">${t.icon&&t.icon.startsWith('data:')?`<img class="ic" src="${esc(t.icon)}" alt=""><button data-a="rmicon">Remove image</button>`:`<input data-k="icon" value="${esc(t.icon)}" style="flex:1;margin:0">`}<button data-a="upicon">Upload image…</button><input type="file" id="fi" accept="image/*" hidden></div></label>`
+ +ta('back','Back of tile (text shown when it flips)',2);
+ if(t.type==='project')h+=ta('desc','Description',4)+inp('url','Website link (optional)')+`<label>Tags (comma separated)<input data-k="tags" data-list="1" value="${esc((t.tags||[]).join(', '))}"></label><label>Screenshots <small>(first ones also flip on the tile)</small><div class="row">${(t.shots||[]).map((s,n)=>`<span class="thumb"><img src="${esc(s)}" alt=""><button data-a="rmshot" data-n="${n}">✕</button></span>`).join('')}<button data-a="upshot">Add screenshots…</button><input type="file" id="fs" accept="image/*" multiple hidden></div></label>`;
+ if(t.type==='games')h+=gamesForm(t);
+ if(t.type==='pricing')h+=plansForm(t);
+ if(t.type==='page'||t.type==='about')h+=ta('body',t.type==='about'?'About text':'Page text',6);
+ if(t.type==='page'||t.type==='link')h+=inp('url',t.type==='link'?'Link (opens in a new tab)':'Button link (optional)');
+ $('#form').innerHTML=h}
+function fit(file,max,mime){return new Promise(res=>{const fr=new FileReader();fr.onload=()=>{if(file.type==='image/svg+xml')return res(fr.result);const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext('2d');if(mime==='image/jpeg'){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}x.drawImage(im,0,0,c.width,c.height);res(c.toDataURL(mime,.82))};im.src=fr.result};fr.readAsDataURL(file)})}
+function refresh(){list();prev();out()}
+$('#list').onclick=e=>{const li=e.target.closest('.li');if(!li)return;const i=+li.dataset.i,a=e.target.dataset.a,T=S.tiles;
+ if(a==='up'&&i>0){[T[i-1],T[i]]=[T[i],T[i-1]];sel=i-1}else if(a==='dn'&&i<T.length-1){[T[i+1],T[i]]=[T[i],T[i+1]];sel=i+1}
+ else if(a==='dup'){const c=JSON.parse(JSON.stringify(T[i]));c.id=uid();c.label+=' copy';T.splice(i+1,0,c);sel=i+1}
+ else if(a==='del'){if(!confirm('Delete “'+T[i].label+'”?'))return;T.splice(i,1);sel=Math.max(0,Math.min(sel,T.length-1))}
+ else sel=i;drawAll()};
+$('#prev').onclick=e=>{const p=e.target.closest('.pt');if(p){sel=+p.dataset.i;drawAll()}};
+$('#add').onclick=()=>{const type=$('#newtype').value,t={id:uid(),type,size:'m',color:'#0078d7',label:'New tile',icon:'⭐',back:''};fix(t);S.tiles.push(t);sel=S.tiles.length-1;drawAll()};
+$('#form').addEventListener('input',e=>{const t=S.tiles[sel],k=e.target.dataset.k,gk=e.target.dataset.gk;if(t&&gk){t.games[+e.target.dataset.gn][gk]=e.target.value;out();return}
+ const pk=e.target.dataset.pk;if(t&&pk){t.plans[+e.target.dataset.pn][pk]=e.target.type==='checkbox'?e.target.checked:e.target.dataset.plist?e.target.value.split('\n').map(x=>x.trim()).filter(Boolean):e.target.value;out();return}if(!t||!k)return;t[k]=e.target.dataset.list?e.target.value.split(',').map(s=>s.trim()).filter(Boolean):e.target.value;if(k==='type'){fix(t);drawAll()}else refresh()});
+$('#form').addEventListener('click',e=>{const t=S.tiles[sel],d=e.target.dataset;if(!t)return;
+ if(d.size){t.size=d.size;drawAll()}else if(d.c){t.color=d.c;drawAll()}else if(d.a==='rmicon'){t.icon='';drawAll()}
+ else if(d.a==='rmshot'){t.shots.splice(+d.n,1);drawAll()}else if(d.a==='upicon')$('#fi').click();else if(d.a==='upshot')$('#fs').click()
+ else if(d.a==='gadd'){t.games.push({id:uid(),title:'New game',core:$('#gsys').value,url:'',bios:'',cover:'🎮'});drawAll()}
+ else if(d.a==='gdel'){t.games.splice(+d.n,1);drawAll()}
+ else if(d.a==='gup'&&+d.n>0){const G=t.games,n=+d.n;[G[n-1],G[n]]=[G[n],G[n-1]];drawAll()}
+ else if(d.a==='gdn'&&+d.n<t.games.length-1){const G=t.games,n=+d.n;[G[n+1],G[n]]=[G[n],G[n+1]];drawAll()}
+ else if(d.a==='gcrm'){t.games[+d.n].cover='';drawAll()}
+ else if(d.a==='gcup'){gtarget=+d.n;$('#fg').click()}
+ else if(d.a==='padd'){t.plans.push({label:'',name:'New plan',badge:'',price:'$0',priceNote:'',recurring:'',recurringNote:'',features:[],highlight:false});drawAll()}
+ else if(d.a==='pdel'){t.plans.splice(+d.n,1);drawAll()}
+ else if(d.a==='pup'&&+d.n>0){const G=t.plans,n=+d.n;[G[n-1],G[n]]=[G[n],G[n-1]];drawAll()}
+ else if(d.a==='pdn'&&+d.n<t.plans.length-1){const G=t.plans,n=+d.n;[G[n+1],G[n]]=[G[n],G[n+1]];drawAll()}});
+$('#form').addEventListener('change',async e=>{const t=S.tiles[sel];if(e.target.id==='fi'&&e.target.files[0]){t.icon=await fit(e.target.files[0],256,'image/png');drawAll()}
+ if(e.target.id==='fg'&&e.target.files[0]){t.games[gtarget].cover=await fit(e.target.files[0],256,'image/png');drawAll()}
+ if(e.target.id==='fs'){for(const f of e.target.files)t.shots.push(await fit(f,1000,'image/jpeg'));drawAll()}});
+$('#side').addEventListener('input',e=>{const g=e.target.dataset.g,v=e.target.value;if(!g)return;if(g==='skills')S.skills=v.split(',').map(s=>s.trim()).filter(Boolean);else if(g==='emupath')S.emulator.path=v;else if(g==='facts')S.facts=v.split('\n').map(s=>s.trim()).filter(Boolean);else S.profile[g]=v;out()});
+function setS(o){if(!o||!Array.isArray(o.tiles))throw new Error('No "tiles" list found');o.profile=o.profile||{name:'',tagline:'',email:''};o.emulator=o.emulator||{path:'https://cdn.emulatorjs.org/stable/data/'};o.skills=o.skills||[];o.facts=o.facts||[];o.tiles.forEach(t=>{t.id=t.id||uid();t.size=t.size||'m';t.color=t.color||'#0078d7';t.icon=t.icon||'';t.back=t.back||'';t.label=t.label||'';fix(t)});S=o;sel=0;drawAll()}
+$('#load').onclick=()=>{try{setS(JSON.parse($('#out').value))}catch(e){alert('Could not read that JSON: '+e.message)}};
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(json())}catch(e){$('#out').select();document.execCommand('copy')}$('#copy').textContent='Copied ✓';setTimeout(()=>$('#copy').textContent='Copy JSON',1500)};
+const dl=(name,text,type)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click()};
+$('#dljson').onclick=()=>dl('tiles.json',json(),'application/json');
+$('#open').onclick=()=>$('#openf').click();
+$('#openf').onchange=async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text(),m=text.match(SCRIPT_RE);if(!m)return alert('No <script id="site-data"> block found in that file.');try{setS(JSON.parse(text.slice(m.index+m[1].length,m.index+m[0].length-m[2].length)));html=text;$('#dlsite').disabled=false}catch(x){alert('Could not read the data in that file: '+x.message)}};
+$('#dlsite').onclick=()=>dl('portfolio.html',html.replace(SCRIPT_RE,(a,b,c)=>b+'\n'+json()+'\n'+c),'text/html');
+drawAll();
+</script>
+</body>
+</html>
